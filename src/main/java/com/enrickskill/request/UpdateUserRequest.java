@@ -4,8 +4,8 @@ import com.enrickskill.entity.Role;
 import lombok.Data;
 
 @Data
-public class CreateUserRequest {
-
+public class UpdateUserRequest {
+    private Integer id;
     private String firstname;
     private String lastname;
     private String email;

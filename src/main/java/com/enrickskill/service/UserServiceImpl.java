@@ -6,6 +6,7 @@ import com.enrickskill.base.BusinessException;
 import com.enrickskill.mapper.UserMapper;
 import com.enrickskill.request.CreateUserRequest;
 import com.enrickskill.repository.UserRepository;
+import com.enrickskill.request.UpdateUserRequest;
 import com.enrickskill.response.UserResponse;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.data.domain.Page;
@@ -38,6 +39,12 @@ public class UserServiceImpl implements UserService {
                 () -> new BusinessException(BusinessCode.NOT_FOUND_USER)
         );
         return userMapper.to(user);
+    }
+
+    @Override
+    public UserResponse update(UpdateUserRequest request) {
+        User user = userMapper.to(request);
+        return userMapper.to(userRepo.saveAndFlush(user));
     }
 
     @Override

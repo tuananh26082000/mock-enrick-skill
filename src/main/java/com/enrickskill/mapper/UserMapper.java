@@ -1,7 +1,8 @@
 package com.enrickskill.mapper;
 
-import com.enrickskill.request.CreateUserRequest;
 import com.enrickskill.entity.User;
+import com.enrickskill.request.CreateUserRequest;
+import com.enrickskill.request.UpdateUserRequest;
 import com.enrickskill.response.UserResponse;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Component;
@@ -10,6 +11,12 @@ import org.springframework.stereotype.Component;
 public class UserMapper implements Mapper<User> {
 
     public User to(CreateUserRequest request) {
+        User user = new User();
+        BeanUtils.copyProperties(request, user);
+        return user;
+    }
+
+    public User to(UpdateUserRequest request) {
         User user = new User();
         BeanUtils.copyProperties(request, user);
         return user;

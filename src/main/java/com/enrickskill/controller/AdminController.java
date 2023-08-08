@@ -1,8 +1,9 @@
 package com.enrickskill.controller;
 
 import com.enrickskill.base.BaseResponse;
-import com.enrickskill.entity.User;
+import com.enrickskill.request.CreateUserRequest;
 import com.enrickskill.request.RegisterRequest;
+import com.enrickskill.request.UpdateUserRequest;
 import com.enrickskill.response.AuthenticationResponse;
 import com.enrickskill.response.UserResponse;
 import com.enrickskill.service.AuthenticationService;
@@ -10,8 +11,6 @@ import com.enrickskill.service.TokenServiceImpl;
 import com.enrickskill.service.UserService;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
-import io.swagger.v3.oas.annotations.Hidden;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -46,22 +45,21 @@ public class AdminController {
         return ResponseEntity.ok(service.register(request));
     }
 
-    @GetMapping("/info-user/{id}")
+    @GetMapping("/user/{id}")
     @PreAuthorize("hasAuthority('admin:read')")
     public BaseResponse<UserResponse> findById(@PathVariable Integer id) {
         return BaseResponse.ofSuccess(userService.findById(id));
     }
-    @PostMapping
-    @PreAuthorize("hasAuthority('admin:create')")
-    @Hidden
-    public String post() {
-        return "POST:: admin controller";
-    }
-    @PutMapping
+    @PutMapping("/user/{id}")
     @PreAuthorize("hasAuthority('admin:update')")
-    @Hidden
-    public String put() {
-        return "PUT:: admin controller";
+    public ResponseEntity<UserResponse> updateUser(@PathVariable Integer id,
+                                                   @RequestBody UpdateUserRequest request
+    ) {
+        Optional<UserResponse> user = Optional.ofNullable(userService.findById(id));
+        return user.map(user1 -> {
+            request.setId(user1.getId());
+            return new ResponseEntity<>(userService.update(request), HttpStatus.OK);
+        }).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
     @DeleteMapping("/delete-user/{id}")
     @PreAuthorize("hasAuthority('admin:delete')")
