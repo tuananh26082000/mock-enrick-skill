@@ -1,14 +1,17 @@
 package com.enrickskill.controller;
 
 import com.enrickskill.base.BaseResponse;
+import com.enrickskill.entity.User;
 import com.enrickskill.request.RegisterRequest;
 import com.enrickskill.response.AuthenticationResponse;
 import com.enrickskill.response.UserResponse;
 import com.enrickskill.service.AuthenticationService;
+import com.enrickskill.service.TokenServiceImpl;
 import com.enrickskill.service.UserService;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.v3.oas.annotations.Hidden;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,21 +19,27 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import springfox.documentation.annotations.ApiIgnore;
 
+import java.util.Optional;
+
 @RestController
 @RequestMapping("/api/v1/admin")
-@PreAuthorize("hasAnyRole('ADMIN','USER')")
+@PreAuthorize("hasRole('ADMIN')")
 public class AdminController {
 
     private final UserService userService;
+
     private final AuthenticationService service;
 
-    public AdminController(UserService userService, AuthenticationService service) {
+    private final TokenServiceImpl tokenService;
+
+    public AdminController(UserService userService, AuthenticationService service, TokenServiceImpl tokenService) {
         this.userService = userService;
         this.service = service;
+        this.tokenService = tokenService;
     }
 
     @PostMapping("/register")
-    @PreAuthorize("hasAnyAuthority('admin:create','user:create')")
+    @PreAuthorize("hasAuthority('admin:create')")
     public ResponseEntity<AuthenticationResponse> register(
             @RequestBody RegisterRequest request
     ) {
@@ -54,11 +63,12 @@ public class AdminController {
     public String put() {
         return "PUT:: admin controller";
     }
-    @PostMapping("/delete-user/{id}")
+    @DeleteMapping("/delete-user/{id}")
     @PreAuthorize("hasAuthority('admin:delete')")
     public ResponseEntity<Void> deleteById(@PathVariable Integer id) {
         try {
-            userService.deleteById(id);
+            tokenService.delete(id);
+            userService.delete(id);
             return new ResponseEntity<>(HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);

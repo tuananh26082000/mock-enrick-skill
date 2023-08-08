@@ -1,6 +1,5 @@
 package com.enrickskill.service;
 
-import com.enrickskill.request.AuthenticationRequest;
 import com.enrickskill.request.CreateUserRequest;
 import com.enrickskill.response.UserResponse;
 import org.springframework.data.domain.Page;
@@ -13,7 +12,7 @@ public interface UserService {
 
     UserResponse findById(Integer id);
 
-    void deleteById(Integer id);
+    void delete(Integer id);
 
     Page<UserResponse> findALL(Pageable pageable);
 

@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api/v1/user")
 @Tag(name = "User")
-public class ManagementController {
+public class UserController {
 
 
     @Operation(
