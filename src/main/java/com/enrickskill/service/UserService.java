@@ -13,6 +13,8 @@ public interface UserService {
 
     UserResponse findById(Integer id);
 
+    void deleteById(Integer id);
+
     Page<UserResponse> findALL(Pageable pageable);
 
 }

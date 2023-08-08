@@ -27,10 +27,7 @@ public enum Role {
   ),
   USER(
           Set.of(
-                  USER_READ,
-                  USER_UPDATE,
-                  USER_DELETE,
-                  USER_CREATE
+                  USER_READ
           )
   )
 

@@ -11,6 +11,7 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 
@@ -39,6 +40,11 @@ public class UserServiceImpl implements UserService {
                 () -> new BusinessException(BusinessCode.NOT_FOUND_USER)
         );
         return userMapper.to(user);
+    }
+
+    @Override
+    public void deleteById(Integer id) {
+        userRepo.deleteById(id);
     }
 
     @Override
