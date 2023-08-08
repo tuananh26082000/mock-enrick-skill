@@ -1,4 +1,4 @@
-package com.enrickskill.demo;
+package com.enrickskill.controller;
 
 import io.swagger.v3.oas.annotations.Hidden;
 import org.springframework.http.ResponseEntity;

@@ -1,4 +1,4 @@
-package com.enrickskill.user;
+package com.enrickskill.entity;
 
 import com.enrickskill.token.Token;
 import jakarta.persistence.Entity;

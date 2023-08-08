@@ -1,4 +1,4 @@
-package com.enrickskill.auth;
+package com.enrickskill.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

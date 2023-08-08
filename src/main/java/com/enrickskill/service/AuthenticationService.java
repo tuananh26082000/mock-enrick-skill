@@ -1,11 +1,15 @@
-package com.enrickskill.auth;
+package com.enrickskill.service;
 
-import com.enrickskill.config.JwtService;
+import com.enrickskill.request.AuthenticationRequest;
+import com.enrickskill.response.AuthenticationResponse;
+import com.enrickskill.request.RegisterRequest;
+import com.enrickskill.base.BusinessCode;
+import com.enrickskill.base.BusinessException;
 import com.enrickskill.token.Token;
-import com.enrickskill.token.TokenRepository;
+import com.enrickskill.repository.TokenRepository;
 import com.enrickskill.token.TokenType;
-import com.enrickskill.user.User;
-import com.enrickskill.user.UserRepository;
+import com.enrickskill.entity.User;
+import com.enrickskill.repository.UserRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -53,7 +57,9 @@ public class AuthenticationService {
         )
     );
     var user = repository.findByEmail(request.getEmail())
-        .orElseThrow();
+        .orElseThrow(
+                () -> new BusinessException(BusinessCode.NOT_FOUND_USER)
+        );
     var jwtToken = jwtService.generateToken(user);
     var refreshToken = jwtService.generateRefreshToken(user);
     revokeAllUserTokens(user);

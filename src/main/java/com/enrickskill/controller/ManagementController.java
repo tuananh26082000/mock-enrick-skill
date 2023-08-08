@@ -1,4 +1,4 @@
-package com.enrickskill.demo;
+package com.enrickskill.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/v1/management")
-@Tag(name = "Management")
+@RequestMapping("/api/v1/user")
+@Tag(name = "User")
 public class ManagementController {
 
 

@@ -13,16 +13,9 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.logout.LogoutHandler;
 
-import static com.enrickskill.user.Permission.ADMIN_CREATE;
-import static com.enrickskill.user.Permission.ADMIN_DELETE;
-import static com.enrickskill.user.Permission.ADMIN_READ;
-import static com.enrickskill.user.Permission.ADMIN_UPDATE;
-import static com.enrickskill.user.Permission.MANAGER_CREATE;
-import static com.enrickskill.user.Permission.MANAGER_DELETE;
-import static com.enrickskill.user.Permission.MANAGER_READ;
-import static com.enrickskill.user.Permission.MANAGER_UPDATE;
-import static com.enrickskill.user.Role.ADMIN;
-import static com.enrickskill.user.Role.MANAGER;
+import static com.enrickskill.entity.Permission.*;
+import static com.enrickskill.entity.Role.ADMIN;
+import static com.enrickskill.entity.Role.USER;
 import static org.springframework.http.HttpMethod.DELETE;
 import static org.springframework.http.HttpMethod.GET;
 import static org.springframework.http.HttpMethod.POST;
@@ -60,13 +53,13 @@ public class SecurityConfiguration {
           .permitAll()
 
 
-        .requestMatchers("/api/v1/management/**").hasAnyRole(ADMIN.name(), MANAGER.name())
+        .requestMatchers("/api/v1/management/**").hasAnyRole(ADMIN.name(), USER.name())
 
 
-        .requestMatchers(GET, "/api/v1/management/**").hasAnyAuthority(ADMIN_READ.name(), MANAGER_READ.name())
-        .requestMatchers(POST, "/api/v1/management/**").hasAnyAuthority(ADMIN_CREATE.name(), MANAGER_CREATE.name())
-        .requestMatchers(PUT, "/api/v1/management/**").hasAnyAuthority(ADMIN_UPDATE.name(), MANAGER_UPDATE.name())
-        .requestMatchers(DELETE, "/api/v1/management/**").hasAnyAuthority(ADMIN_DELETE.name(), MANAGER_DELETE.name())
+        .requestMatchers(GET, "/api/v1/management/**").hasAnyAuthority(ADMIN_READ.name(), USER_READ.name())
+        .requestMatchers(POST, "/api/v1/management/**").hasAnyAuthority(ADMIN_CREATE.name(), USER_CREATE.name())
+        .requestMatchers(PUT, "/api/v1/management/**").hasAnyAuthority(ADMIN_UPDATE.name(), USER_UPDATE.name())
+        .requestMatchers(DELETE, "/api/v1/management/**").hasAnyAuthority(ADMIN_DELETE.name(), USER_DELETE.name())
 
 
        /* .requestMatchers("/api/v1/admin/**").hasRole(ADMIN.name())

@@ -1,6 +1,8 @@
 package com.enrickskill.config;
 
-import com.enrickskill.user.UserRepository;
+import com.enrickskill.base.BusinessCode;
+import com.enrickskill.base.BusinessException;
+import com.enrickskill.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

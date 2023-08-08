@@ -1,6 +1,6 @@
-package com.enrickskill.auth;
+package com.enrickskill.request;
 
-import com.enrickskill.user.Role;
+import com.enrickskill.entity.Role;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

@@ -1,8 +1,8 @@
 package com.enrickskill;
 
-import com.enrickskill.auth.AuthenticationService;
-import com.enrickskill.auth.RegisterRequest;
-import com.enrickskill.user.Role;
+import com.enrickskill.service.AuthenticationService;
+import com.enrickskill.request.RegisterRequest;
+import com.enrickskill.entity.Role;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -32,13 +32,13 @@ public class SecurityApplication {
 			System.out.println("Admin token: " + service.register(admin).getAccessToken());
 
 			var manager = RegisterRequest.builder()
-					.firstname("Admin")
-					.lastname("Admin")
-					.email("manager@mail.com")
+					.firstname("User")
+					.lastname("user")
+					.email("user@mail.com")
 					.password("password")
-					.role(Role.MANAGER)
+					.role(Role.USER)
 					.build();
-			System.out.println("Manager token: " + service.register(manager).getAccessToken());
+			System.out.println("User token: " + service.register(manager).getAccessToken());
 
 		};
 	}

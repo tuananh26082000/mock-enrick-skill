@@ -1,4 +1,4 @@
-package com.enrickskill.auth;
+package com.enrickskill.response;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
