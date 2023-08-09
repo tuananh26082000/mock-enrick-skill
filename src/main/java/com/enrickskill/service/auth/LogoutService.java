@@ -1,4 +1,4 @@
-package com.enrickskill.service;
+package com.enrickskill.service.auth;
 
 import com.enrickskill.repository.TokenRepository;
 import jakarta.servlet.http.HttpServletRequest;

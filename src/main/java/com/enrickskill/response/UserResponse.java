@@ -5,6 +5,7 @@ import lombok.Data;
 
 @Data
 public class UserResponse {
+    // TODO need refactor response
     private Integer id;
     private String email;
 

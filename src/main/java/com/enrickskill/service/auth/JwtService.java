@@ -1,4 +1,4 @@
-package com.enrickskill.service;
+package com.enrickskill.service.auth;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;

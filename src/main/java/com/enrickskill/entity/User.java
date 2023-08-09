@@ -1,6 +1,6 @@
 package com.enrickskill.entity;
 
-import com.enrickskill.token.Token;
+import com.enrickskill.entity.token.Token;
 import jakarta.persistence.*;
 
 import java.util.Collection;

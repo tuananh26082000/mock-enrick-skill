@@ -1,4 +1,4 @@
-package com.enrickskill.request;
+package com.enrickskill.request.user;
 
 import com.enrickskill.entity.Role;
 import lombok.AllArgsConstructor;

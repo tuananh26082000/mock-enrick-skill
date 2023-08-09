@@ -1,12 +1,12 @@
-package com.enrickskill.service;
+package com.enrickskill.service.user;
 
 import com.enrickskill.entity.User;
 import com.enrickskill.base.BusinessCode;
 import com.enrickskill.base.BusinessException;
 import com.enrickskill.mapper.UserMapper;
-import com.enrickskill.request.CreateUserRequest;
+import com.enrickskill.request.user.CreateUserRequest;
 import com.enrickskill.repository.UserRepository;
-import com.enrickskill.request.UpdateUserRequest;
+import com.enrickskill.request.user.UpdateUserRequest;
 import com.enrickskill.response.UserResponse;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.data.domain.Page;
@@ -39,6 +39,12 @@ public class UserServiceImpl implements UserService {
                 () -> new BusinessException(BusinessCode.NOT_FOUND_USER)
         );
         return userMapper.to(user);
+    }
+
+    @Override
+    public UserResponse getCurrentUser() {
+
+        return null;
     }
 
     @Override

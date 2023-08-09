@@ -1,14 +1,13 @@
 package com.enrickskill.controller;
 
 import com.enrickskill.base.BaseResponse;
-import com.enrickskill.request.CreateUserRequest;
-import com.enrickskill.request.RegisterRequest;
-import com.enrickskill.request.UpdateUserRequest;
+import com.enrickskill.request.user.RegisterRequest;
+import com.enrickskill.request.user.UpdateUserRequest;
 import com.enrickskill.response.AuthenticationResponse;
 import com.enrickskill.response.UserResponse;
-import com.enrickskill.service.AuthenticationService;
-import com.enrickskill.service.TokenServiceImpl;
-import com.enrickskill.service.UserService;
+import com.enrickskill.service.auth.AuthenticationService;
+import com.enrickskill.service.token.TokenServiceImpl;
+import com.enrickskill.service.user.UserService;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import org.springframework.data.domain.Pageable;

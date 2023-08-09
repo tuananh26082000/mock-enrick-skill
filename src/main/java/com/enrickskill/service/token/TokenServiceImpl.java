@@ -1,7 +1,6 @@
-package com.enrickskill.service;
+package com.enrickskill.service.token;
 
 import com.enrickskill.repository.TokenRepository;
-import com.enrickskill.repository.UserRepository;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
 

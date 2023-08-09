@@ -1,13 +1,13 @@
-package com.enrickskill.service;
+package com.enrickskill.service.auth;
 
-import com.enrickskill.request.AuthenticationRequest;
+import com.enrickskill.request.auth.AuthenticationRequest;
 import com.enrickskill.response.AuthenticationResponse;
-import com.enrickskill.request.RegisterRequest;
+import com.enrickskill.request.user.RegisterRequest;
 import com.enrickskill.base.BusinessCode;
 import com.enrickskill.base.BusinessException;
-import com.enrickskill.token.Token;
+import com.enrickskill.entity.token.Token;
 import com.enrickskill.repository.TokenRepository;
-import com.enrickskill.token.TokenType;
+import com.enrickskill.entity.token.TokenType;
 import com.enrickskill.entity.User;
 import com.enrickskill.repository.UserRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;

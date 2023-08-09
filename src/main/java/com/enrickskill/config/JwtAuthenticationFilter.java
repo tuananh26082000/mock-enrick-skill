@@ -1,6 +1,6 @@
 package com.enrickskill.config;
 
-import com.enrickskill.service.JwtService;
+import com.enrickskill.service.auth.JwtService;
 import com.enrickskill.repository.TokenRepository;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;

@@ -1,4 +1,4 @@
-package com.enrickskill.token;
+package com.enrickskill.entity.token;
 
 import com.enrickskill.entity.User;
 import jakarta.persistence.Column;

@@ -38,27 +38,19 @@ public class SecurityConfiguration {
         .disable()
         .authorizeHttpRequests()
         .requestMatchers(
-                "/api/v1/auth/**"
+                "/api/v1/auth/**",
+                "/api/v1/exam/**"
         )
           .permitAll()
 
 
-        .requestMatchers("/api/v1/management/**").hasAnyRole(ADMIN.name(), USER.name())
+        .requestMatchers("/api/v1/user/**").hasAnyRole(ADMIN.name(), USER.name())
 
 
-        .requestMatchers(GET, "/api/v1/management/**").hasAnyAuthority(ADMIN_READ.name(), USER_READ.name())
-        .requestMatchers(POST, "/api/v1/management/**").hasAnyAuthority(ADMIN_CREATE.name(), USER_CREATE.name())
-        .requestMatchers(PUT, "/api/v1/management/**").hasAnyAuthority(ADMIN_UPDATE.name(), USER_UPDATE.name())
-        .requestMatchers(DELETE, "/api/v1/management/**").hasAnyAuthority(ADMIN_DELETE.name(), USER_DELETE.name())
-
-
-       /* .requestMatchers("/api/v1/admin/**").hasRole(ADMIN.name())
-
-        .requestMatchers(GET, "/api/v1/admin/**").hasAuthority(ADMIN_READ.name())
-        .requestMatchers(POST, "/api/v1/admin/**").hasAuthority(ADMIN_CREATE.name())
-        .requestMatchers(PUT, "/api/v1/admin/**").hasAuthority(ADMIN_UPDATE.name())
-        .requestMatchers(DELETE, "/api/v1/admin/**").hasAuthority(ADMIN_DELETE.name())*/
-
+        .requestMatchers(GET, "/api/v1/user/**").hasAnyAuthority(ADMIN_READ.name(), USER_READ.name())
+        .requestMatchers(POST, "/api/v1/user/**").hasAnyAuthority(ADMIN_CREATE.name(), USER_CREATE.name())
+        .requestMatchers(PUT, "/api/v1/user/**").hasAnyAuthority(ADMIN_UPDATE.name(), USER_UPDATE.name())
+        .requestMatchers(DELETE, "/api/v1/user/**").hasAnyAuthority(ADMIN_DELETE.name(), USER_DELETE.name())
 
         .anyRequest()
           .authenticated()

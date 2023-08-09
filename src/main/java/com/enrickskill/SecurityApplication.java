@@ -1,8 +1,10 @@
 package com.enrickskill;
 
-import com.enrickskill.service.AuthenticationService;
-import com.enrickskill.request.RegisterRequest;
+import com.enrickskill.request.exam.CreateExamRequest;
+import com.enrickskill.service.auth.AuthenticationService;
+import com.enrickskill.request.user.RegisterRequest;
 import com.enrickskill.entity.Role;
+import com.enrickskill.service.exam.ExamServiceImpl;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -19,7 +21,8 @@ public class SecurityApplication {
 
 	@Bean
 	public CommandLineRunner commandLineRunner(
-			AuthenticationService service
+			AuthenticationService service,
+			ExamServiceImpl examService
 	) {
 		return args -> {
 			var admin = RegisterRequest.builder()
@@ -40,6 +43,11 @@ public class SecurityApplication {
 					.build();
 			System.out.println("User token: " + service.register(manager).getAccessToken());
 
+			var exam = CreateExamRequest.builder()
+					.owner_exam(2)
+					.exam_name("Toan")
+					.build();
+			System.out.println(examService.save(exam).getExam_name());
 		};
 	}
 }

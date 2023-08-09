@@ -1,13 +1,11 @@
 package com.enrickskill.controller;
 
-import com.enrickskill.request.AuthenticationRequest;
+import com.enrickskill.request.auth.AuthenticationRequest;
 import com.enrickskill.response.AuthenticationResponse;
-import com.enrickskill.service.AuthenticationService;
-import com.enrickskill.request.RegisterRequest;
+import com.enrickskill.service.auth.AuthenticationService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
