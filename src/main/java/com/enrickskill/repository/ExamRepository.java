@@ -2,13 +2,13 @@ package com.enrickskill.repository;
 
 import com.enrickskill.entity.Exam;
 import com.enrickskill.response.ExamResponse;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
-
-import java.util.List;
 
 @Repository
 public interface ExamRepository extends JpaRepository<Exam, Integer>, JpaSpecificationExecutor<Exam>, CrudRepository<Exam, Integer> {
@@ -18,4 +18,7 @@ public interface ExamRepository extends JpaRepository<Exam, Integer>, JpaSpecifi
       where u.id = :id \s
       """)
     ExamResponse findExamUser(Integer id);
+
+    @Override
+    Page<Exam> findAll(Pageable pageable);
 }

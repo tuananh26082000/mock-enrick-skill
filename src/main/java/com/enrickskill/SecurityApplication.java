@@ -44,10 +44,11 @@ public class SecurityApplication {
 			System.out.println("User token: " + service.register(manager).getAccessToken());
 
 			var exam = CreateExamRequest.builder()
+					.name_exam("Toan")
+					.result_exam(2)
 					.owner_exam(2)
-					.exam_name("Toan")
 					.build();
-			System.out.println(examService.save(exam).getExam_name());
+			System.out.println(examService.save(exam).getName_exam());
 		};
 	}
 }

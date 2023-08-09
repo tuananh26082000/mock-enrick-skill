@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CreateExamRequest {
+    private String name_exam;
+    private Integer result_exam;
     private Integer owner_exam;
-    private String exam_name;
 }

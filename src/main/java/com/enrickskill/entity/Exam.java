@@ -16,7 +16,9 @@ public class Exam {
     @GeneratedValue
     public Integer id;
 
-    public Integer owner_exam;
+    public Integer result_exam;
 
-    public String exam_name;
+    public String name_exam;
+
+    public Integer owner_exam;
 }
