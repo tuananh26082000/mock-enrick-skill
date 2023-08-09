@@ -4,8 +4,11 @@ import java.util.List;
 import java.util.Optional;
 
 import com.enrickskill.entity.token.Token;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -19,6 +22,5 @@ public interface TokenRepository extends JpaRepository<Token, Integer> {
   List<Token> findAllValidTokenByUser(Integer id);
 
   Optional<Token> findByToken(String token);
-
-  void deleteById(Integer integer);
+  void deleteById(Integer id);
 }
