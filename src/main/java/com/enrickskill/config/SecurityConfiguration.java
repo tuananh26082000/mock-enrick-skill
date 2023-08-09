@@ -38,13 +38,13 @@ public class SecurityConfiguration {
         .disable()
         .authorizeHttpRequests()
         .requestMatchers(
-                "/api/v1/auth/**",
-                "/api/v1/exam/**"
+                "/api/v1/auth/**"
         )
           .permitAll()
 
 
-        .requestMatchers("/api/v1/user/**").hasAnyRole(ADMIN.name(), USER.name())
+        .requestMatchers("/api/v1/user/**",
+                "/api/v1/exam/**").hasAnyRole(ADMIN.name(), USER.name())
 
 
         .requestMatchers(GET, "/api/v1/user/**").hasAnyAuthority(ADMIN_READ.name(), USER_READ.name())

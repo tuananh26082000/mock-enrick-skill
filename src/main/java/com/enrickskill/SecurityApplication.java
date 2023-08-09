@@ -48,7 +48,7 @@ public class SecurityApplication {
 					.result_exam(2)
 					.owner_exam(2)
 					.build();
-			System.out.println(examService.save(exam).getName_exam());
+			examService.save(exam);
 		};
 	}
 }

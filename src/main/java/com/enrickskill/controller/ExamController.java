@@ -2,20 +2,21 @@ package com.enrickskill.controller;
 
 import com.enrickskill.base.BaseResponse;
 import com.enrickskill.repository.ExamRepository;
+import com.enrickskill.request.exam.CreateExamRequest;
+import com.enrickskill.request.exam.UpdateExamRequest;
 import com.enrickskill.response.ExamResponse;
 import com.enrickskill.service.exam.ExamServiceImpl;
-import com.enrickskill.service.user.UserServiceImpl;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import springfox.documentation.annotations.ApiIgnore;
+
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/v1/exam")
@@ -41,10 +42,38 @@ public class ExamController {
     return BaseResponse.ofSuccess(examService.findAll(pageable));
   }
 
-  @PostMapping
+  @GetMapping("{id}")
   @PreAuthorize("hasAnyAuthority('admin:read')")
-  public ResponseEntity<String> sayHello2() {
-    return ResponseEntity.ok("Hello from secured endpoint");
+  public BaseResponse<ExamResponse> findExamById(@PathVariable Integer id) {
+    return BaseResponse.ofSuccess(examService.findById(id));
+  }
+
+  @PostMapping
+  @PreAuthorize("hasAnyAuthority('admin:create')")
+  public BaseResponse<ExamResponse> createExam(@RequestBody CreateExamRequest request){
+    return BaseResponse.ofSuccess(examService.save(request));
+  }
+
+  @PutMapping("/{id}")
+  @PreAuthorize("hasAuthority('admin:update')")
+  public ResponseEntity<ExamResponse> updateExam(@PathVariable Integer id,
+                                               @RequestBody UpdateExamRequest request){
+    Optional<ExamResponse> exam = Optional.ofNullable(examService.findById(id));
+    return exam.map(user1 -> {
+      request.setId(user1.getId());
+      return new ResponseEntity<>(examService.update(request), HttpStatus.OK);
+    }).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+  }
+
+  @DeleteMapping("/{id}")
+  @PreAuthorize("hasAuthority('admin:delete')")
+  public ResponseEntity<Void> deleteExam(@PathVariable Integer id){
+    try {
+      examService.delete(id);
+      return new ResponseEntity<>(HttpStatus.OK);
+    } catch (Exception e) {
+      return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    }
   }
 
 }
