@@ -42,12 +42,6 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserResponse getCurrentUser() {
-
-        return null;
-    }
-
-    @Override
     public UserResponse update(UpdateUserRequest request) {
         User user = userMapper.to(request);
         return userMapper.to(userRepo.saveAndFlush(user));

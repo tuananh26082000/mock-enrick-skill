@@ -7,7 +7,7 @@ import com.enrickskill.response.UserResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,13 +19,10 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/api/v1/user")
 @Tag(name = "User")
+@RequiredArgsConstructor
 public class UserController {
-
-    @Autowired
-    private UserRepository userRepository;
-
-    @Autowired
-    private UserMapper userMapper;
+    private final UserRepository userRepository;
+    private final UserMapper userMapper;
     @Operation(
             description = "Get endpoint for manager",
             summary = "This is a summary for management get endpoint",

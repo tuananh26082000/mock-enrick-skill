@@ -10,6 +10,7 @@ import com.enrickskill.service.token.TokenServiceImpl;
 import com.enrickskill.service.user.UserService;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,6 +23,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/api/v1/admin")
 @PreAuthorize("hasRole('ADMIN')")
+@RequiredArgsConstructor
 public class AdminController {
 
     private final UserService userService;
@@ -29,12 +31,6 @@ public class AdminController {
     private final AuthenticationService service;
 
     private final TokenServiceImpl tokenService;
-
-    public AdminController(UserService userService, AuthenticationService service, TokenServiceImpl tokenService) {
-        this.userService = userService;
-        this.service = service;
-        this.tokenService = tokenService;
-    }
 
     @PostMapping("/register")
     @PreAuthorize("hasAuthority('admin:create')")

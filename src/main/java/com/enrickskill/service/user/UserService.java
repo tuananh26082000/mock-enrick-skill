@@ -11,7 +11,6 @@ public interface UserService {
 
     UserResponse findById(Integer id);
 
-    UserResponse getCurrentUser();
     UserResponse save(CreateUserRequest request);
     UserResponse update(UpdateUserRequest request);
 
