@@ -37,9 +37,7 @@ public class User implements UserDetails {
 
   @OneToMany(mappedBy = "user",
           fetch = FetchType.LAZY,
-          cascade = CascadeType.REMOVE,
-          orphanRemoval = true)
-  @OnDelete(action = OnDeleteAction.NO_ACTION)
+          cascade = CascadeType.REMOVE)
   private List<Token> tokens;
 
   @Override
