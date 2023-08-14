@@ -6,7 +6,6 @@ import com.enrickskill.request.user.UpdateUserRequest;
 import com.enrickskill.response.AuthenticationResponse;
 import com.enrickskill.response.UserResponse;
 import com.enrickskill.service.auth.AuthenticationService;
-import com.enrickskill.service.token.TokenServiceImpl;
 import com.enrickskill.service.user.UserService;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -29,8 +28,6 @@ public class AdminController {
     private final UserService userService;
 
     private final AuthenticationService service;
-
-    private final TokenServiceImpl tokenService;
 
     @PostMapping("/register")
     @PreAuthorize("hasAuthority('admin:create')")
