@@ -56,11 +56,10 @@ public class AdminController {
             return new ResponseEntity<>(userService.update(request), HttpStatus.OK);
         }).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
-    @DeleteMapping("/delete-user/{id}")
+    @DeleteMapping("/user/{id}")
     @PreAuthorize("hasAuthority('admin:delete')")
     public ResponseEntity<Void> deleteById(@PathVariable Integer id) {
         try {
-            tokenService.delete(id);
             userService.delete(id);
             return new ResponseEntity<>(HttpStatus.OK);
         } catch (Exception e) {

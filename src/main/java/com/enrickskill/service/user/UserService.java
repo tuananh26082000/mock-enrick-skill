@@ -1,6 +1,5 @@
 package com.enrickskill.service.user;
 
-import com.enrickskill.request.user.CreateUserRequest;
 import com.enrickskill.request.user.UpdateUserRequest;
 import com.enrickskill.response.UserResponse;
 import org.springframework.data.domain.Page;
@@ -11,7 +10,6 @@ public interface UserService {
 
     UserResponse findById(Integer id);
 
-    UserResponse save(CreateUserRequest request);
     UserResponse update(UpdateUserRequest request);
 
     void delete(Integer id);

@@ -5,6 +5,7 @@ import com.enrickskill.service.auth.AuthenticationService;
 import com.enrickskill.request.user.RegisterRequest;
 import com.enrickskill.entity.Role;
 import com.enrickskill.service.exam.ExamServiceImpl;
+import org.modelmapper.ModelMapper;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

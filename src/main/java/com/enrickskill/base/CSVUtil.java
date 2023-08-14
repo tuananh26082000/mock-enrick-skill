@@ -18,7 +18,6 @@ import java.util.stream.Collectors;
 
 public class CSVUtil {
     public static String TYPE = "text/csv";
-    static String[] HEADERS = {"name_exam","result_exam","owner_exam"};
 
     public static boolean isCSVFormat(MultipartFile file) {
         return TYPE.equals(file.getContentType());
@@ -49,7 +48,6 @@ public class CSVUtil {
 
     public static <T> T convertCSVRecordToObj(CSVRecord record, CSVRecord header, ObjectMapper mapper, Class<T> targetClass) {
         int index = 0;
-        System.out.println(record.toString());
         Map<String, String> map = new HashMap<>();
         for (String field : header.values()) {
             map.put(field, record.get(index));

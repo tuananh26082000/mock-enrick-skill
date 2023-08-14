@@ -7,12 +7,11 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.stream.Collectors;
-
+@SuppressWarnings("ALL")
 @Component
 @RequiredArgsConstructor
-public class MappingUtil {
-
-    private ModelMapper modelMapper;
+public class MappingCSV {
+    private final ModelMapper modelMapper;
     public  <S, T> List<T> mapList(List<S> source, Class<T> targetClass) {
         return source
                 .stream()

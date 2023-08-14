@@ -1,18 +1,11 @@
 package com.enrickskill.controller;
 
 import com.enrickskill.base.BaseResponse;
-import com.enrickskill.base.BusinessCode;
-import com.enrickskill.base.BusinessException;
+import com.enrickskill.base.DemoConstant;
 import com.enrickskill.base.CSVUtil;
-import com.enrickskill.entity.Exam;
-import com.enrickskill.entity.User;
-import com.enrickskill.mapper.ExamMapper;
-import com.enrickskill.repository.ExamRepository;
-import com.enrickskill.repository.UserRepository;
 import com.enrickskill.request.exam.CreateExamRequest;
 import com.enrickskill.request.exam.UpdateExamRequest;
 import com.enrickskill.response.ExamResponse;
-import com.enrickskill.response.UserResponse;
 import com.enrickskill.service.exam.ExamServiceImpl;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -20,7 +13,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.core.io.Resource;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
@@ -102,28 +97,41 @@ public class ExamController {
   @PostMapping("/upload/csv")
   @PreAuthorize("hasAnyAuthority('admin:create')")
   public BaseResponse<?> uploadCSV(@RequestParam("file") MultipartFile file) {
-    BusinessException businessException = new BusinessException(BusinessCode.INTERNAL_SERVER);
+    BaseResponse<?> response = null;
     if (CSVUtil.isCSVFormat(file)) {
       try {
         examService.insertExamsByFile(file);
 
-        BaseResponse.ofSuccess(
-                "Uploaded the file successfully: " + file.getOriginalFilename()
+        response =  BaseResponse.ofSuccess(
+                DemoConstant.FileCSV.SUCCESS_CSV + file.getOriginalFilename()
         );
       } catch (Exception e) {
-        BaseResponse.ofSuccess(
-                "Uploaded the file successfully: " + file.getOriginalFilename()
+        response = BaseResponse.ofSuccess(
+                DemoConstant.FileCSV.FAIL_CSV + file.getOriginalFilename()
         );
       }
     }
-    return BaseResponse.ofFailed(businessException.getErrorResponse());
+    return response;
   }
 
   @GetMapping("/download/csv")
+  @PreAuthorize("hasAnyAuthority('user:read')")
+  public ResponseEntity<Resource> getCSVForUser(Authentication authentication) {
+    InputStreamResource file = new InputStreamResource(examService.exportCSVByEmail(authentication.getName()));
+    return ResponseEntity.ok()
+            .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + DemoConstant.FileCSV.FILE_NAME)
+            .contentType(MediaType.parseMediaType("application/csv"))
+            .body(file);
+  }
+
+  @GetMapping("/download/csv/{id}")
   @PreAuthorize("hasAnyAuthority('admin:read')")
-  public BaseResponse<Resource> getCSV() {
-    InputStreamResource file = new InputStreamResource(examService.exportCSV());
-    return BaseResponse.ofSuccess(file);
+  public ResponseEntity<Resource> getCSVByID(@PathVariable Integer id) {
+    InputStreamResource file = new InputStreamResource(examService.exportCSVByID(id));
+    return ResponseEntity.ok()
+            .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + DemoConstant.FileCSV.FILE_NAME)
+            .contentType(MediaType.parseMediaType("application/csv"))
+            .body(file);
   }
 
 }

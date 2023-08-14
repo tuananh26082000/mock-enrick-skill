@@ -6,7 +6,7 @@ import com.enrickskill.base.CSVUtil;
 import com.enrickskill.entity.Exam;
 import com.enrickskill.entity.User;
 import com.enrickskill.mapper.ExamMapper;
-import com.enrickskill.mapper.MappingUtil;
+import com.enrickskill.mapper.MappingCSV;
 import com.enrickskill.repository.ExamRepository;
 import com.enrickskill.repository.UserRepository;
 import com.enrickskill.request.exam.CreateExamRequest;
@@ -15,7 +15,6 @@ import com.enrickskill.response.ExamResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -33,7 +32,7 @@ public class ExamServiceImpl implements ExamService {
     private final ExamRepository examRepository;
     private final UserRepository userRepository;
     private final ExamMapper examMapper;
-    private final MappingUtil mappingUtil;
+    private final MappingCSV mappingUtil;
 
     @Override
     public ExamResponse save(CreateExamRequest request) {
@@ -69,14 +68,14 @@ public class ExamServiceImpl implements ExamService {
     @Override
     public Page<ExamResponse> findAllByIdUser(String email, Pageable pageable) {
         Optional<User> user = userRepository.findByEmail(email);
-        Page<Exam> exams = examRepository.findAllByOwner_exam(user.get().getId(), pageable);
+        Page<Exam> exams = examRepository.findAllByOwner_exam(user.orElseThrow().getId(), pageable);
         return exams.map(examMapper::to);
     }
 
     @Override
     public void insertExamsByFile(MultipartFile file) {
         try {
-            List<UpdateExamRequest> examDtoList = CSVUtil.csvToList(file.getInputStream(), UpdateExamRequest.class);
+            List<CreateExamRequest> examDtoList = CSVUtil.csvToList(file.getInputStream(), CreateExamRequest.class);
             List<Exam> exams = mappingUtil.mapList(examDtoList, Exam.class);
             examRepository.saveAll(exams);
 
@@ -87,9 +86,15 @@ public class ExamServiceImpl implements ExamService {
     }
 
     @Override
-    public ByteArrayInputStream exportCSV() {
-        List<Exam> exams = examRepository.findAll();
+    public ByteArrayInputStream exportCSVByID(Integer id) {
+        List<Exam> exams = examRepository.findAllById(id);
+        return CSVUtil.exportCSV(exams);
+    }
 
+    @Override
+    public ByteArrayInputStream exportCSVByEmail(String email) {
+        Optional<User> user = userRepository.findByEmail(email);
+        List<Exam> exams = examRepository.findAllById(user.orElseThrow().getId());
         return CSVUtil.exportCSV(exams);
     }
 }

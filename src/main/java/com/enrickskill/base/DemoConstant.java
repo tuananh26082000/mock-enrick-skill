@@ -34,4 +34,10 @@ public class DemoConstant {
     String TRACE_ID = "traceId";
     String TIME_REQUEST = "time-request";
   }
+
+  public interface FileCSV{
+    String SUCCESS_CSV = "Uploaded the file successfully: ";
+    String FAIL_CSV = "Uploaded the file successfully: " ;
+    String FILE_NAME = "exams.csv" ;
+  }
 }

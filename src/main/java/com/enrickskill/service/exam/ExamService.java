@@ -8,7 +8,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.ByteArrayInputStream;
-import java.util.Optional;
 
 public interface ExamService {
     ExamResponse save (CreateExamRequest request);
@@ -22,5 +21,6 @@ public interface ExamService {
     Page<ExamResponse> findAllByIdUser(String email, Pageable pageable);
 
     void insertExamsByFile(MultipartFile file);
-    ByteArrayInputStream exportCSV();
+    ByteArrayInputStream exportCSVByID(Integer id);
+    ByteArrayInputStream exportCSVByEmail(String email);
 }

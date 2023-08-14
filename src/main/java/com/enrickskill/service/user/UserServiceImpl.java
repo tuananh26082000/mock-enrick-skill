@@ -4,7 +4,6 @@ import com.enrickskill.entity.User;
 import com.enrickskill.base.BusinessCode;
 import com.enrickskill.base.BusinessException;
 import com.enrickskill.mapper.UserMapper;
-import com.enrickskill.request.user.CreateUserRequest;
 import com.enrickskill.repository.UserRepository;
 import com.enrickskill.request.user.UpdateUserRequest;
 import com.enrickskill.response.UserResponse;
@@ -26,13 +25,6 @@ public class UserServiceImpl implements UserService {
         this.userRepo = userRepo;
         this.userMapper = userMapper;
     }
-
-    @Override
-    public UserResponse save(CreateUserRequest request) {
-        User user = userMapper.to(request);
-        return userMapper.to(userRepo.saveAndFlush(user));
-    }
-
     @Override
     public UserResponse findById(Integer id) {
         User user = userRepo.findById(id).orElseThrow(
