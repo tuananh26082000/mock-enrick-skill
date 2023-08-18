@@ -37,7 +37,7 @@ public class DemoConstant {
 
   public interface FileCSV{
     String SUCCESS_CSV = "Uploaded the file successfully: ";
-    String FAIL_CSV = "Uploaded the file successfully: " ;
+    String FAIL_CSV = "Uploaded the file failed: " ;
     String FILE_NAME = "exams.csv" ;
   }
 }

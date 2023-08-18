@@ -106,7 +106,7 @@ public class ExamController {
                 DemoConstant.FileCSV.SUCCESS_CSV + file.getOriginalFilename()
         );
       } catch (Exception e) {
-        response = BaseResponse.ofSuccess(
+        response = BaseResponse.ofSuccess(HttpStatus.BAD_REQUEST,
                 DemoConstant.FileCSV.FAIL_CSV + file.getOriginalFilename()
         );
       }
